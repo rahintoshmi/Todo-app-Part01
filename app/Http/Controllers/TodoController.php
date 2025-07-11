@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Todo;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -10,7 +11,9 @@ class TodoController extends Controller
         return view('Homepage');
     }
     function todos(){
-        return view('AllTodo');
+        // $todos = Todo::orderBy('status','ASC')->latest()->get();
+        $todos = Todo::orderBy('status','ASC')->latest()->paginate(3);
+        return view('AllTodo',compact('todos'));
     }
     function storeTodo(Request $request){
         //validations
@@ -24,6 +27,12 @@ class TodoController extends Controller
             'title.required' => 'Title koi??',
             'author.required' => 'Author name is required!!!!!',
            
+        ]);
+        //store data
+        Todo::create($request->all());
+        return to_route('todos')->with('msg', [
+            'type' => 'success',
+            'res' => 'Todo Added Successfully!'
         ]);
        
     }
