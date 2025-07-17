@@ -11,7 +11,7 @@ class TodoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return True;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class TodoRequest extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:10',
-            'detail' => 'required|min:3|max:20',
-            'author' => 'required|min:3|max:10',
+            'detail' => 'nullable|min:3|max:10',
+            'author' => 'nullable|min:3|max:10',
             'date' =>  'required|after_or_equal:today',
         ];
     }

@@ -10,4 +10,5 @@ Route::controller(TodoController::class)->group(function () {
     Route::get('/delete/{id}', 'deleteTodo')->name('delete');
     Route::get('/edit/{id}', 'editTodo')->name('edit');
     Route::post('/update/{id}', 'storeTodo')->name('update');
+    Route::get('/status/{id}', 'statusTodo')->name('status');
 });

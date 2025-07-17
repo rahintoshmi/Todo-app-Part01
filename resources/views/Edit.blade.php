@@ -12,7 +12,7 @@
                     @error('title')
                         <span class="text-danger">{{ $message}}</span>
                     @enderror
-                    <textarea name="detail" placeholder="Todo Detail" class="my-2 form-control @error('detail') is-invalid @enderror" value="{{ $todo->detail }}"></textarea>
+                    <textarea name="detail" placeholder="Todo Detail" class="my-2 form-control @error('detail') is-invalid @enderror" value="">{{ $todo->detail }}</textarea>
                     @error('detail')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use App\Http\Requests\TodoRequest;
 
 class TodoController extends Controller
 {
@@ -53,6 +54,19 @@ class TodoController extends Controller
         try{
              $todo = Todo::findOrFail($id);
              return view('Edit', compact('todo')); 
+        }
+        catch(Exception $e){
+           return to_route('todos')->with('msg', $this->getErrorMsg());
+        }
+    }
+    function statusTodo($id){
+        try{
+           $todo = Todo::findOrFail($id);
+           $todo->status = $todo->status == 0 ? 1 : 0; // Toggle the status
+           $todo->save();
+        
+           $status = $todo->status == 0 ? 'completed' : '';
+           return to_route('todos')->with('msg', $this->getMsg("Todo marked as $status!"));
         }
         catch(Exception $e){
            return to_route('todos')->with('msg', $this->getErrorMsg());
